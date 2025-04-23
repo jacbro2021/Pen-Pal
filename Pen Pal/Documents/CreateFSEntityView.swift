@@ -89,7 +89,7 @@ struct CreateFSEntityView: View {
         let options = getTGOptions()
         let pdf = PDFTemplateGenerator.createPDFTemplateInMemory(options)
         let model = Document(title: entityName, pdfDocument: pdf)
-        
+                
         return VStack {
             Image(uiImage: model.thumbnail)
                 .resizable()
@@ -139,7 +139,11 @@ struct CreateFSEntityView: View {
         } else {
             let options = getTGOptions()
             let pdf = PDFTemplateGenerator.createPDFTemplateInMemory(options)
-            let model = Document(title: entityName, pdfDocument: pdf, parentID: parentID)
+            let model = Document(title: entityName,
+                                 pdfDocument: pdf,
+                                 parentID: parentID,
+                                 newPageTemplate: pdf,
+                                 tagColor: tagColor)
             
             modelContext.insert(model)
         }

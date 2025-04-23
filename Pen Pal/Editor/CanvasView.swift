@@ -11,15 +11,18 @@ import SwiftData
 import SwiftUI
 
 struct CanvasView: UIViewControllerRepresentable {
-    var document: Document
     @Environment(\.modelContext) var modelContext
+    var document: Document
+    var closureWrapper: ClosureWrapper
 
     func makeUIViewController(context: Context) -> some UIViewController {
         return DocumentViewController(modelContext: modelContext, document: document)
     }
 
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-        // Don't need this yet.
+        if let vc = uiViewController as? DocumentViewController {
+            closureWrapper.closure = vc.addPDFPage
+        }
     }
 }
 
@@ -34,8 +37,6 @@ class DocumentViewController: UIViewController,
     
     private var pageToViewMapping: [PDFPage: PKCanvasView] = [:]
     private var toolPicker: PKToolPicker
-    
-    private var dirty = false
     
     init(modelContext: ModelContext, document: Document) {
         self.document = document
@@ -72,7 +73,9 @@ class DocumentViewController: UIViewController,
         toolPicker.setVisible(true, forFirstResponder: pdfView)
         
         pdfView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        
         view.addSubview(pdfView)
+        pdfView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
     func pdfView(_ view: PDFView, overlayViewFor page: PDFPage) -> UIView? {
@@ -101,9 +104,9 @@ class DocumentViewController: UIViewController,
             pageToViewMapping[page] = resultView
             toolPicker.addObserver(resultView)
             
-//#if targetEnvironment(simulator)
+            // #if targetEnvironment(simulator)
 //            resultView.drawingPolicy = .anyInput
-//#endif
+            // #endif
         }
         
         return resultView
@@ -119,6 +122,18 @@ class DocumentViewController: UIViewController,
         document.lastTouched = .now
     }
     
+    func addPDFPage() {
+        guard let newPage = document.newPageTemplate.page(at: 0) else {
+            return
+        }
+        pdfView.document?.insert(newPage, at: pdfView.document!.pageCount)
+        document.lastTouched = .now
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseInOut) {
+            self.pdfView.go(to: newPage)
+        }
+    }
+
     override func viewWillDisappear(_ animated: Bool) {
         for (page, canvas) in pageToViewMapping {
             savePageDrawing(page: page, canvas: canvas)
@@ -138,6 +153,6 @@ class DocumentViewController: UIViewController,
 }
 
 #Preview {
-    CanvasView(document: PreviewData.documentExamples[0])
+    CanvasView(document: PreviewData.documentExamples[0], closureWrapper: .init())
         .modelContainer(PreviewData.getPreviewModelContainer())
 }

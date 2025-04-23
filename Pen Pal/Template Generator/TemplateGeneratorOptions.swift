@@ -14,7 +14,16 @@ class TGOptions {
     var backgroundColor: Color = .white
     var accentColor: Color = .black
     
-    enum TGPaperSize: String, CaseIterable {
+    
+    init(size: TGPaperSize = .A4, pattern: TGPattern = .blank, backgroundColor: Color = .white, accentColor: Color = .black) {
+        self.size = size
+        self.pattern = pattern
+        self.backgroundColor = backgroundColor
+        self.accentColor = accentColor
+    }
+
+    
+    enum TGPaperSize: String, CaseIterable, Codable {
         case A0 = "A0"
         case A1 = "A1"
         case A2 = "A2"
@@ -42,7 +51,7 @@ class TGOptions {
         }
     }
     
-    enum TGPattern: String, CaseIterable {
+    enum TGPattern: String, CaseIterable, Codable {
         case blank = "Blank"
         case grid = "Grid"
         case lined = "Lined"

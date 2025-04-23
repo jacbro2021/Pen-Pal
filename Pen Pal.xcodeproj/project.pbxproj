@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		48099A722D21F708006616DB /* ThumbnailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48099A712D21F708006616DB /* ThumbnailView.swift */; };
 		4819412A2D19C6E400DA8B8C /* FileSystemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481941292D19C6E400DA8B8C /* FileSystemEntity.swift */; };
 		4819412D2D1A6E0C00DA8B8C /* CreateFSEntityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4819412C2D1A6E0C00DA8B8C /* CreateFSEntityView.swift */; };
 		4819412F2D1D43F200DA8B8C /* PDFTemplateGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4819412E2D1D43F200DA8B8C /* PDFTemplateGenerator.swift */; };
 		481941322D1DD82F00DA8B8C /* TemplateGeneratorOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481941312D1DD82F00DA8B8C /* TemplateGeneratorOptions.swift */; };
 		481941342D1DE0FA00DA8B8C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481941332D1DE0FA00DA8B8C /* ColorExtension.swift */; };
 		481941372D1E6AD700DA8B8C /* EditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 481941362D1E6AD700DA8B8C /* EditorView.swift */; };
+		48910E882D223DD600C83C2A /* Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48910E872D223DC800C83C2A /* Thumbnail.swift */; };
+		48910E8B2D26364200C83C2A /* MPConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48910E8A2D26364200C83C2A /* MPConnectionManager.swift */; };
+		48910E912D26802700C83C2A /* CodablePDFDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48910E902D26802200C83C2A /* CodablePDFDocument.swift */; };
 		48BE00802D17486F0039AD93 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BE007F2D1748680039AD93 /* PreviewData.swift */; };
 		48BE00822D174D100039AD93 /* UUIDExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48BE00812D174D0B0039AD93 /* UUIDExtension.swift */; };
 		48BE00842D18DC420039AD93 /* test.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 48BE00832D18DC420039AD93 /* test.pdf */; };
@@ -27,12 +31,17 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		48099A712D21F708006616DB /* ThumbnailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbnailView.swift; sourceTree = "<group>"; };
 		481941292D19C6E400DA8B8C /* FileSystemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemEntity.swift; sourceTree = "<group>"; };
 		4819412C2D1A6E0C00DA8B8C /* CreateFSEntityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateFSEntityView.swift; sourceTree = "<group>"; };
 		4819412E2D1D43F200DA8B8C /* PDFTemplateGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFTemplateGenerator.swift; sourceTree = "<group>"; };
 		481941312D1DD82F00DA8B8C /* TemplateGeneratorOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateGeneratorOptions.swift; sourceTree = "<group>"; };
 		481941332D1DE0FA00DA8B8C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		481941362D1E6AD700DA8B8C /* EditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorView.swift; sourceTree = "<group>"; };
+		48910E872D223DC800C83C2A /* Thumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thumbnail.swift; sourceTree = "<group>"; };
+		48910E8A2D26364200C83C2A /* MPConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPConnectionManager.swift; sourceTree = "<group>"; };
+		48910E8C2D2636FA00C83C2A /* Pen-Pal-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Pen-Pal-Info.plist"; sourceTree = SOURCE_ROOT; };
+		48910E902D26802200C83C2A /* CodablePDFDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodablePDFDocument.swift; sourceTree = "<group>"; };
 		48BE007F2D1748680039AD93 /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		48BE00812D174D0B0039AD93 /* UUIDExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UUIDExtension.swift; sourceTree = "<group>"; };
 		48BE00832D18DC420039AD93 /* test.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = test.pdf; sourceTree = "<group>"; };
@@ -63,6 +72,7 @@
 			children = (
 				481941362D1E6AD700DA8B8C /* EditorView.swift */,
 				48D0F3972D164DD300F0EC1B /* CanvasView.swift */,
+				48099A712D21F708006616DB /* ThumbnailView.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -83,6 +93,14 @@
 				481941332D1DE0FA00DA8B8C /* ColorExtension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		48910E892D26361500C83C2A /* Multipeer Connectivity */ = {
+			isa = PBXGroup;
+			children = (
+				48910E8A2D26364200C83C2A /* MPConnectionManager.swift */,
+			);
+			path = "Multipeer Connectivity";
 			sourceTree = "<group>";
 		};
 		48D0F3722D164DB100F0EC1B = {
@@ -114,10 +132,12 @@
 		48D0F3912D164DBA00F0EC1B /* Pen Pal */ = {
 			isa = PBXGroup;
 			children = (
+				48910E8C2D2636FA00C83C2A /* Pen-Pal-Info.plist */,
 				48D0F3902D164DBA00F0EC1B /* Pen_PalApp.swift */,
 				48D0F38F2D164DBA00F0EC1B /* ContentView.swift */,
 				48D0F39B2D1650BF00F0EC1B /* Documents */,
 				4819412B2D1A6B2900DA8B8C /* Editor */,
+				48910E892D26361500C83C2A /* Multipeer Connectivity */,
 				481941302D1DD80A00DA8B8C /* Template Generator */,
 				48D0F3A52D1653F400F0EC1B /* Shared */,
 				48D0F38D2D164DBA00F0EC1B /* Preview Content */,
@@ -147,6 +167,8 @@
 		48D0F3AE2D1659B000F0EC1B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				48910E902D26802200C83C2A /* CodablePDFDocument.swift */,
+				48910E872D223DC800C83C2A /* Thumbnail.swift */,
 				48D0F3AC2D16587800F0EC1B /* Document.swift */,
 				48D0F3AA2D16581300F0EC1B /* Folder.swift */,
 				481941292D19C6E400DA8B8C /* FileSystemEntity.swift */,
@@ -230,6 +252,7 @@
 			files = (
 				4819412A2D19C6E400DA8B8C /* FileSystemEntity.swift in Sources */,
 				481941322D1DD82F00DA8B8C /* TemplateGeneratorOptions.swift in Sources */,
+				48910E8B2D26364200C83C2A /* MPConnectionManager.swift in Sources */,
 				4819412F2D1D43F200DA8B8C /* PDFTemplateGenerator.swift in Sources */,
 				481941372D1E6AD700DA8B8C /* EditorView.swift in Sources */,
 				48D0F3A22D16510600F0EC1B /* DocumentExplorerView.swift in Sources */,
@@ -237,10 +260,13 @@
 				48D0F3AD2D16587C00F0EC1B /* Document.swift in Sources */,
 				48BE00802D17486F0039AD93 /* PreviewData.swift in Sources */,
 				48D0F3982D164DD600F0EC1B /* CanvasView.swift in Sources */,
+				48910E912D26802700C83C2A /* CodablePDFDocument.swift in Sources */,
 				481941342D1DE0FA00DA8B8C /* ColorExtension.swift in Sources */,
 				48D0F3AB2D16581800F0EC1B /* Folder.swift in Sources */,
 				48D0F3922D164DBA00F0EC1B /* ContentView.swift in Sources */,
+				48099A722D21F708006616DB /* ThumbnailView.swift in Sources */,
 				4819412D2D1A6E0C00DA8B8C /* CreateFSEntityView.swift in Sources */,
+				48910E882D223DD600C83C2A /* Thumbnail.swift in Sources */,
 				48D0F3932D164DBA00F0EC1B /* Pen_PalApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +404,8 @@
 				DEVELOPMENT_TEAM = JF3C4XP9N2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pen-Pal-Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Would like to find other users nearby.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -408,6 +436,8 @@
 				DEVELOPMENT_TEAM = JF3C4XP9N2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Pen-Pal-Info.plist";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Would like to find other users nearby.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

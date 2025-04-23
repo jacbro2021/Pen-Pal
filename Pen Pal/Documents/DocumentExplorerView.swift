@@ -42,34 +42,39 @@ struct DocumentExplorerView: View {
     
     var body: some View {
         List {
-            if (fsEntities.isEmpty) {
+            if fsEntities.isEmpty {
                 ContentUnavailableView("Click '+' to create folders and documents.", systemImage: "document.fill")
             } else {
-                ForEach(fsEntities) { item in
-                    switch item {
-                    case .folder(let folder):
-                        folderThumbnail(folder: folder)
-                    case .document(let document):
-                        documentThumbnail(document: document)
-                    }
-                }
-                .onDelete(perform: deleteItem)
+                entityList
             }
         }
-        .padding(.horizontal)
         .navigationBarTitleDisplayMode(.large)
         .sheet(isPresented: $showingSheet) {
             CreateFSEntityView(parentID: parentID)
         }
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button {
-                    showingSheet.toggle()
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.title)
-                }
+            ToolbarItem(placement: .topBarTrailing) { addEntityButton }
+        }
+    }
+    
+    private var entityList: some View {
+        ForEach(fsEntities) { item in
+            switch item {
+            case .folder(let folder):
+                folderThumbnail(folder: folder)
+            case .document(let document):
+                documentThumbnail(document: document)
             }
+        }
+        .onDelete(perform: deleteItem)
+    }
+    
+    private var addEntityButton: some View {
+        Button {
+            showingSheet.toggle()
+        } label: {
+            Image(systemName: "plus")
+                .font(.title)
         }
     }
     
@@ -113,7 +118,7 @@ struct DocumentExplorerView: View {
     private func documentThumbnail(document: Document) -> some View {
         NavigationLink {
             EditorView(document: document)
-                .ignoresSafeArea()
+                .modelContext(modelContext)
         } label: {
             HStack {
                 Image(uiImage: document.thumbnail)
@@ -121,6 +126,7 @@ struct DocumentExplorerView: View {
                     .scaledToFit()
                     .frame(width: 50)
                     .padding()
+                    .shadow(radius: 5)
                     
                 VStack(alignment: .leading, spacing: 5) {
                     Text(document.title)
@@ -129,10 +135,10 @@ struct DocumentExplorerView: View {
                         .lineLimit(1)
                     
                     Text("Document")
-                        .foregroundStyle(.orange)
+                        .foregroundStyle(document.tagColor)
                         .padding(5)
                         .font(.headline)
-                        .background(.orange.opacity(0.2))
+                        .background(document.tagColor.opacity(0.2))
                         .clipShape(RoundedRectangle(cornerRadius: 5))
                 }
                 

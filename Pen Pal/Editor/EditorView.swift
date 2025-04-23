@@ -5,33 +5,42 @@
 //  Created by jacob brown on 12/26/24.
 //
 
-import SwiftUI
 import PDFKit
+import PencilKit
+import SwiftUI
 
 struct EditorView: View {
     @Bindable var document: Document
-    
+    var closureWrapper: ClosureWrapper = .init()
+
     var body: some View {
         VStack {
-            CanvasView(document: document)
-            
-            Button {
-                let pdf = document.pdfDocument
-                let newPage = PDFPage()
-                pdf.insert(newPage, at: pdf.pageCount)
-                
-                document.pdfDocument = pdf
-                
-            } label: {
-                Text("Add page")
+            CanvasView(document: document, closureWrapper: closureWrapper)
+        }
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    addPage()
+                } label: {
+                    Text("Add page")
+                }
             }
-            .padding(50)
         }
         .ignoresSafeArea()
     }
+
+    private func addPage() {
+        closureWrapper.closure()
+    }
+}
+
+class ClosureWrapper {
+    var closure: () -> Void = {}
 }
 
 #Preview {
-    EditorView(document: PreviewData.documentExamples[0])
-        .modelContainer(PreviewData.getPreviewModelContainer())
+    NavigationStack {
+        EditorView(document: PreviewData.documentExamples[0])
+            .modelContainer(PreviewData.getPreviewModelContainer())
+    }
 }

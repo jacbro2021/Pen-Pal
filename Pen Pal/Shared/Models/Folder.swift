@@ -27,6 +27,7 @@ class Folder {
     init(title: String, documents: [Document] = [], subFolders: [Folder] = [], parentID: UUID = UUID(), tagColor: Color = .blue) {
         id = UUID()
         lastTouched = .now
+        
         self.title = title
         self.documents = documents
         self.subFolders = subFolders

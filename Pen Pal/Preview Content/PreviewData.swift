@@ -28,15 +28,21 @@ class PreviewData {
         }
        
         // Test pdf document
+        container.mainContext.insert(testDocument)
+        
+        return container
+    }
+    
+    static var testDocument: Document {
         guard let url = Bundle.main.url(forResource: "test", withExtension: "pdf"),
               let pdfDocument = PDFDocument(url: url)
         else {
             fatalError("failed to fetch test pdf")
         }
-        let testDocument = Document(title: "Test Document", pdfDocument: pdfDocument, parentID: .RootID)
-        container.mainContext.insert(testDocument)
         
-        return container
+        return Document(title: "Test Document",
+                        pdfDocument: pdfDocument,
+                        parentID: .RootID)
     }
     
     static var folderExamples: [Folder] = [
