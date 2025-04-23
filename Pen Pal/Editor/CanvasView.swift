@@ -139,6 +139,10 @@ class DocumentViewController: UIViewController,
             savePageDrawing(page: page, canvas: canvas)
         }
         
+        if let doc = pdfView.document {
+            document.pdfDocument = doc
+        }
+        
         super.viewWillDisappear(animated)
     }
     
