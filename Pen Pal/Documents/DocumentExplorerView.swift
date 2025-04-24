@@ -149,6 +149,15 @@ struct DocumentExplorerView: View {
                     .font(.callout)
             }
         }
+        .contextMenu {
+            ShareLink(
+                item: document,
+                preview: SharePreview(
+                    document.title,
+                    image: Image(uiImage: document.thumbnail)
+                )
+            )
+        }
     }
     
     private func deleteItem(indicies: IndexSet) {

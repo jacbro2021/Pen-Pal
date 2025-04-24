@@ -9,87 +9,6 @@ import Foundation
 import PDFKit
 import PencilKit
 import SwiftData
-
-//@Model
-//class Document {
-//    @Attribute(.unique) var id: UUID
-//    var parentID: UUID
-//    var lastTouched: Date
-//    var title: String
-//   
-//    @Attribute(.externalStorage) var document: CodablePDFDocument
-//    @Attribute(.externalStorage) private var drawings: [Data]
-//    @Attribute(.externalStorage) private var newPageTemplateData: Data
-//
-//
-//    init(
-//        title: String,
-//        pdfDocument: CodablePDFDocument = .init(),
-//        parentID: UUID = UUID(),
-//        newPageTemplate: PDFDocument = PDFTemplateGenerator.createPDFTemplateInMemory()
-//    ) {
-//        self.id = UUID()
-//        self.parentID = parentID
-//        self.lastTouched = .now
-//        self.title = title
-//
-//        self.document = pdfDocument
-//        
-//        guard let templateData = newPageTemplate.dataRepresentation() else {
-//            fatalError("Failed to convert PDF template to data blob.")
-//        }
-//        self.newPageTemplateData = templateData
-//
-//        self.drawings = []
-//        (0 ..< pdfDocument.pdfDocument.pageCount).forEach { _ in
-//            self.drawings.append(PKDrawingReference().dataRepresentation())
-//        }
-//    }
-//}
-//
-//extension Document {
-//    var pdfDrawings: [PKDrawingReference] {
-//        get {
-//            do {
-//                let references = try self.drawings.map { try PKDrawingReference(data: $0) }
-//                return references
-//            } catch {
-//                fatalError("Failed to initialize PDF drawings from data.")
-//            }
-//        }
-//        set {
-//            self.drawings = newValue.map { $0.dataRepresentation() }
-//        }
-//    }
-//    
-//    var newPageTemplate: PDFDocument {
-//        get {
-//            guard let pdf = PDFDocument(data: self.newPageTemplateData) else {
-//                fatalError("Failed to initialize PDF template from data blob.")
-//            }
-//            return pdf
-//        }
-//        set {
-//            guard let data = newValue.dataRepresentation() else {
-//                fatalError("Failed to convert PDF document to data blob.")
-//            }
-//            self.newPageTemplateData = data
-//        }
-//    }
-//}
-//
-
-//
-//  DocumentModel.swift
-//  Pen Pal
-//
-//  Created by jacob brown on 12/20/24.
-//
-
-import Foundation
-import PDFKit
-import PencilKit
-import SwiftData
 import SwiftUI
 
 @Model
@@ -226,46 +145,50 @@ class Document {
     }
 }
 
-/// Create a thumbnail UI image for each page that can be used as a thumbnail in the document explorer, and for the thumbnail view
-/// within the editor.
-///
-/// TODO: This is pretty inefficient... Fix it.
-extension Document {
-    var thumbnails: [Thumbnail] {
-        let tuples = self.pdfDrawings.enumerated().map { index, drawing in
-            (index, drawing, self.pdfDocument.page(at: index))
-        }
-
-        var MatchedThumbnails: [Thumbnail] = []
-
-        for (index, drawing, page) in tuples {
-            guard let page = page else {
-                return MatchedThumbnails
+extension Document: Transferable {
+    static var transferRepresentation: some TransferRepresentation {
+        ProxyRepresentation(exporting: { document in
+            let tempDirURL = FileManager.default.temporaryDirectory
+            let fileURL = tempDirURL.appendingPathComponent("\(document.title).pdf")
+            
+            let outputPDF = PDFDocument()
+            let originalPDF = document.pdfDocument
+            
+            for pageIndex in 0..<originalPDF.pageCount {
+                guard let originalPage = originalPDF.page(at: pageIndex) else { continue }
+                
+                let drawingReference = pageIndex < document.pdfDrawings.count ? document.pdfDrawings[pageIndex] : PKDrawingReference()
+                let drawing = try? PKDrawing(data: drawingReference.dataRepresentation())
+                
+                let pageBounds = originalPage.bounds(for: .mediaBox)
+                
+                let renderer = UIGraphicsPDFRenderer(bounds: pageBounds)
+                let pdfData = renderer.pdfData { context in
+                    context.beginPage()
+                    originalPage.draw(with: .mediaBox, to: context.cgContext)
+                    
+                    if let drawing = drawing {
+                        drawing.image(from: pageBounds, scale: 1.0).draw(in: pageBounds)
+                    }
+                }
+                
+                if let newPDFPage = PDFDocument(data: pdfData)?.page(at: 0) {
+                    outputPDF.insert(newPDFPage, at: outputPDF.pageCount)
+                }
             }
-
-            let pdfPageBounds = page.bounds(for: .mediaBox)
-            let renderer = UIGraphicsImageRenderer(size: pdfPageBounds.size)
-
-            let pdfImage = renderer.image { context in
-                let cgContext = context.cgContext
-
-                cgContext.translateBy(x: 0, y: pdfPageBounds.size.height)
-                cgContext.scaleBy(x: 1, y: -1)
-
-                page.draw(with: .mediaBox, to: cgContext)
+            
+            guard let pdfData = outputPDF.dataRepresentation() else {
+                throw TransferError.encodingFailed
             }
-
-            let drawingImage = drawing.image(from: pdfPageBounds, scale: UIScreen.main.scale)
-
-            let image = renderer.image { _ in
-                pdfImage.draw(in: pdfPageBounds)
-                drawingImage.draw(in: pdfPageBounds)
-            }
-
-            let thumbnail = Thumbnail(index: index, page: page, drawingReference: drawing, image: image)
-            MatchedThumbnails.append(thumbnail)
-        }
-
-        return MatchedThumbnails
+            
+            try pdfData.write(to: fileURL)
+            
+            return fileURL
+        })
+    }
+    
+    enum TransferError: Error {
+        case encodingFailed
+        case importingNotSupported
     }
 }

@@ -25,7 +25,18 @@ struct EditorView: View {
                     Text("Add page")
                 }
             }
+
+            ToolbarItem(placement: .primaryAction) {
+                ShareLink(
+                    item: document,
+                    preview: SharePreview(
+                        document.title,
+                        image: Image(uiImage: document.thumbnail)
+                    )
+                )
+            }
         }
+        .toolbarBackground(.visible, for: .navigationBar)
         .ignoresSafeArea()
     }
 
