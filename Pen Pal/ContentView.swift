@@ -11,11 +11,12 @@ struct ContentView: View {
     @Environment(\.modelContext) var modelContext
 
     var body: some View {
-        NavigationStack {
+        NavigationView {
             DocumentExplorerView()
                 .navigationTitle("Documents")
                 .modelContext(modelContext)
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

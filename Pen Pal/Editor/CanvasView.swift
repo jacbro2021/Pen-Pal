@@ -73,9 +73,7 @@ class DocumentViewController: UIViewController,
         toolPicker.setVisible(true, forFirstResponder: pdfView)
         
         pdfView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        
         view.addSubview(pdfView)
-        pdfView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
     }
     
     func pdfView(_ view: PDFView, overlayViewFor page: PDFPage) -> UIView? {
@@ -103,10 +101,6 @@ class DocumentViewController: UIViewController,
             resultView.delegate = self
             pageToViewMapping[page] = resultView
             toolPicker.addObserver(resultView)
-            
-            // #if targetEnvironment(simulator)
-//            resultView.drawingPolicy = .anyInput
-            // #endif
         }
         
         return resultView

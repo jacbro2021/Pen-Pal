@@ -118,7 +118,6 @@ struct DocumentExplorerView: View {
     private func documentThumbnail(document: Document) -> some View {
         NavigationLink {
             EditorView(document: document)
-                .modelContext(modelContext)
         } label: {
             HStack {
                 Image(uiImage: document.thumbnail)
