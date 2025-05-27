@@ -25,6 +25,7 @@
 		48D0F3A22D16510600F0EC1B /* DocumentExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D0F3A12D16510600F0EC1B /* DocumentExplorerView.swift */; };
 		48D0F3AB2D16581800F0EC1B /* Folder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D0F3AA2D16581300F0EC1B /* Folder.swift */; };
 		48D0F3AD2D16587C00F0EC1B /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48D0F3AC2D16587800F0EC1B /* Document.swift */; };
+		48EB63782DE554E500836CEE /* ClosureWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48EB63772DE554E100836CEE /* ClosureWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		48D0F3A12D16510600F0EC1B /* DocumentExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentExplorerView.swift; sourceTree = "<group>"; };
 		48D0F3AA2D16581300F0EC1B /* Folder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Folder.swift; sourceTree = "<group>"; };
 		48D0F3AC2D16587800F0EC1B /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		48EB63772DE554E100836CEE /* ClosureWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClosureWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		4819412B2D1A6B2900DA8B8C /* Editor */ = {
 			isa = PBXGroup;
 			children = (
+				48EB63772DE554E100836CEE /* ClosureWrapper.swift */,
 				481941362D1E6AD700DA8B8C /* EditorView.swift */,
 				48D0F3972D164DD300F0EC1B /* CanvasView.swift */,
 			);
@@ -246,6 +249,7 @@
 				481941342D1DE0FA00DA8B8C /* ColorExtension.swift in Sources */,
 				48D0F3AB2D16581800F0EC1B /* Folder.swift in Sources */,
 				48D0F3922D164DBA00F0EC1B /* ContentView.swift in Sources */,
+				48EB63782DE554E500836CEE /* ClosureWrapper.swift in Sources */,
 				4819412D2D1A6E0C00DA8B8C /* CreateFSEntityView.swift in Sources */,
 				48D0F3932D164DBA00F0EC1B /* Pen_PalApp.swift in Sources */,
 			);

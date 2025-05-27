@@ -22,7 +22,7 @@ struct EditorView: View {
                 Button {
                     addPage()
                 } label: {
-                    Text("Add page")
+                    Image(systemName: "document.badge.plus")
                 }
             }
 
@@ -38,6 +38,8 @@ struct EditorView: View {
         }
         .toolbarBackground(.visible, for: .navigationBar)
         .ignoresSafeArea()
+        .navigationTitle(document.title)
+        .navigationBarTitleDisplayMode(.inline)
     }
 
     private func addPage() {
@@ -45,9 +47,7 @@ struct EditorView: View {
     }
 }
 
-class ClosureWrapper {
-    var closure: () -> Void = {}
-}
+
 
 #Preview {
     NavigationStack {

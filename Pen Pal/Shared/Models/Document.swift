@@ -22,9 +22,9 @@ class Document {
 
     var parentID: UUID
     
-    private var red: CGFloat = 0
-    private var green: CGFloat = 0
-    private var blue: CGFloat = 0
+    private var tagColorRed: CGFloat = 0
+    private var tagColorGreen: CGFloat = 0
+    private var tagColorBlue: CGFloat = 0
 
     init(title: String,
          pdfDocument: PDFDocument = PDFDocument(),
@@ -136,11 +136,11 @@ class Document {
     
     var tagColor: Color {
         get {
-            Color(cgColor: CGColor(red: red, green: green, blue: blue, alpha: 1))
+            Color(cgColor: CGColor(red: tagColorRed, green: tagColorGreen, blue: tagColorBlue, alpha: 1))
         }
         set {
             let uiTagColor = UIColor(newValue)
-            uiTagColor.getRed(&red, green: &green, blue: &blue, alpha: nil)
+            uiTagColor.getRed(&tagColorRed, green: &tagColorGreen, blue: &tagColorBlue, alpha: nil)
         }
     }
 }
